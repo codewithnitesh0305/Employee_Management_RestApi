@@ -1,5 +1,6 @@
 package com.springboot.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -55,7 +56,15 @@ public class UserServiceImp implements UserService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	@Override
+	public ByteArrayInputStream downloadExcelData() throws IOException {
+		// TODO Auto-generated method stub
+		List<User> user = repository.findAll();
+		ByteArrayInputStream dataToExcel = MyExcelHalper.dataToExcel(user);
+		return dataToExcel;
+	}
+	
+	
 
 }

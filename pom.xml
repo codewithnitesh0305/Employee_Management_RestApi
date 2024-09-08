@@ -55,74 +55,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-		<!--<dependency>
+		
+		<!--Upload Excel Data into Database-->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>5.2.3</version>
+		</dependency>
+		<dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi-ooxml</artifactId>
-		    <version>5.3.0</version>
-		</dependency>-->
-	<!--<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi</artifactId>
-	    <version>5.2.3</version>  Update to the latest version 
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi-ooxml</artifactId>
-	    <version>5.2.3</version>  Update to the latest version 
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.xmlbeans</groupId>
-	    <artifactId>xmlbeans</artifactId>
-	    <version>5.1.1</version>  Required for handling OOXML 
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi-ooxml-schemas</artifactId>
-	    <version>4.1.2</version>  Required for handling OOXML schemas 
-	</dependency>-->
-	
-	<!--<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi</artifactId>
-    <version>5.2.3</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml</artifactId>
-    <version>5.2.3</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml-schemas</artifactId>
-    <version>4.1.2</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.xmlbeans</groupId>
-    <artifactId>xmlbeans</artifactId>
-    <version>5.1.1</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-scratchpad</artifactId>
-    <version>5.2.3</version>
-</dependency>-->
-
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi</artifactId>
-    <version>5.2.3</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml</artifactId>
-    <version>5.2.3</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.xmlbeans</groupId>
-    <artifactId>xmlbeans</artifactId>
-    <version>5.1.1</version>
-</dependency>
+		    <version>5.2.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.xmlbeans</groupId>
+		    <artifactId>xmlbeans</artifactId>
+		    <version>5.1.1</version>
+		</dependency>
 
 
 

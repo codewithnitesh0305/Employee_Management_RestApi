@@ -1,14 +1,22 @@
 package com.springboot.HomeController;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.Entity.EncryptedRequest;
 import com.springboot.Service.CyptroUtil;
+
+import org.apache.poi.ss.usermodel.Header;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,14 +50,6 @@ public class UserController {
     	return new ResponseEntity<User>(saveUser,HttpStatus.CREATED);
     }
     
-    @PostMapping("/Users/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file){
-    	if(MyExcelHalper.checkExcelFromat(file)) {
-    		service.saveExcelData(file);
-    		return ResponseEntity.ok(Map.of("message","File is uploaded and data in save succcessfully"));
-    	}
-    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file upload");
-    }
 
     @GetMapping("/User/{id}")
     public ResponseEntity<?> getUserById(@PathVariable("id") int id) throws Exception {
@@ -86,9 +86,7 @@ public class UserController {
     @PutMapping("/User/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody EncryptedRequest encryptedRequest) throws Exception {
         String encryptedData = encryptedRequest.getEncryptedData();
-        //System.out.println(encryptedData);
         String decryptedData = CyptroUtil.decrypt(encryptedData);
-        //System.out.println(decryptedData);
         ObjectMapper objectMapper = new ObjectMapper();
         User user = objectMapper.readValue(decryptedData,User.class);
         user.setId(id);
@@ -107,6 +105,27 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("id") int id){
          service.deleteUserById(id);
         return new ResponseEntity<>("Delete User Successfully",HttpStatus.OK);
+    }
+    
+    @PostMapping("/Users/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file){
+    	if(MyExcelHalper.checkExcelFromat(file)) {
+    		service.saveExcelData(file);
+    		return ResponseEntity.ok(Map.of("message","File is uploaded and data in save succcessfully"));
+    	}
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file upload");
+    }
+    
+    @GetMapping("/Download")
+    public ResponseEntity<Resource> downloadExcelData() throws IOException{
+    	String filename = "Users.xlsx";
+    	ByteArrayInputStream actualData = service.downloadExcelData();
+    	InputStreamResource file = new InputStreamResource(actualData);
+    	ResponseEntity<Resource> body = ResponseEntity.ok()
+    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+filename)
+    			.contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+    			.body(file);
+    	return body;
     }
 
 
